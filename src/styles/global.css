@@ -1,9 +1,9 @@
 :root {
-  --bg-dark: #0f2b1d;
+  --bg-dark: #182619;
   --bg-dark-soft: #163827;
   --bg-cream: #e8e6de;
   --bg-card: #d7ddd0;
-  --text-main: #182618;
+  --text-main: #182619;
   --text-muted: #485148;
   --text-light: #f6f4ee;
   --border-soft: rgba(17, 24, 20, 0.12);
@@ -126,6 +126,14 @@ select {
   padding: 0 18px;
   border-radius: 10px;
   font-size: 0.82rem;
+}
+
+.center-button {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  width: fit-content;
 }
 
 .hero {
@@ -263,7 +271,8 @@ select {
 .section-title p {
   margin: 12px 0 0;
   color: var(--text-muted);
-  font-size: 1.02rem;
+  font-size: 1.4rem;
+  font-weight: 300;
 }
 
 .section-title.is-light h2,
@@ -285,7 +294,7 @@ select {
 }
 
 .residences-section {
-  background: linear-gradient(180deg, #102a1d 0%, #0f2b1d 100%);
+  background: linear-gradient(180deg, #1d2f1e 0%, #182619 100%);
   color: var(--text-light);
   padding: 88px 0 96px;
 }
@@ -301,11 +310,13 @@ select {
   background: #efeee8;
   color: var(--text-main);
   box-shadow: var(--shadow-soft);
+  overflow: hidden;
 }
 
 .residence-image {
   aspect-ratio: 1.1 / 0.76;
   object-fit: cover;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.465);
 }
 
 .residence-content {
@@ -321,29 +332,53 @@ select {
 }
 
 .residence-card h3 {
-  margin: 0 0 8px;
+  margin: 0 0 2px;
   font-size: 1.7rem;
-  font-weight: 500;
+  font-weight: 350;
+  font-style: italic;
+}
+
+.residence-card h3 span {
+  font-size: 1rem;
+  font-weight: 350;
 }
 
 .residence-type {
-  margin: 0 0 18px;
-  font-weight: 700;
+  /* margin: 0 0 18px; */
+  /* font-weight: 700; */
 }
 
-.residence-description,
+.residence-description {
+  min-height: 75px;
+  display: flex;
+  align-items: center;
+}
+
+.delivery {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+/* .residence-description,
 .delivery {
   color: var(--text-muted);
-}
+} */
 
 .detail-list {
   margin: 18px 0 22px;
   padding-left: 18px;
-  color: var(--text-muted);
+  /* color: var(--text-muted); */
+  min-height: 200px;
 }
 
 .detail-list li + li {
-  margin-top: 8px;
+  margin-top: 5px;
+}
+
+.standards-section {
+  background-image: url("/assets/whiddon_standard.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .standards-section,
@@ -371,19 +406,25 @@ select {
 .standard-card h3,
 .process-card h3 {
   margin: 0 0 12px;
-  font-size: 1.12rem;
+  font-size: 1.2rem;
+}
+
+.standard-card p {
+  min-height: 100px;
+  /* font-weight: 300; */
 }
 
 .standard-card p,
 .process-card p {
   margin: 0;
-  color: rgba(246, 244, 238, 0.78);
+  color: rgba(246, 244, 238, 0.889);
 }
 
 .full-bleed-image img {
   width: 100%;
-  height: clamp(260px, 42vw, 520px);
-  object-fit: cover;
+  /* height: clamp(260px, 42vw, 520px); */
+  /* object-fit: cover; */
+  object-fit: contain;
 }
 
 .process-card {

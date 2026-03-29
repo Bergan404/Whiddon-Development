@@ -13,8 +13,8 @@ import TickerSlider from "src/components/TickerSlider.astro";
 import {
   livingPoints,
   processItems,
-  residences,
-  standardItems,
+  // residences,
+  // standardItems,
 } from "../data/site";
 
 const response = await fetch(
@@ -22,12 +22,16 @@ const response = await fetch(
 );
 const data = await response.json();
 const homepage = data.sectionsMap;
+
+const residences = homepage.projects?.content?.project ?? [];
+const standardItems = homepage.whiddon_standards?.content?.standards ?? [];
 ---
 
 <BaseLayout title="Whiddon Development Starter">
   <Header />
 
   <main>
+    <!-- Hero -->
     <section class="hero" id="home">
       <div class="container hero-inner">
         <HeroReveal client:load />
@@ -43,8 +47,10 @@ const homepage = data.sectionsMap;
       </div>
     </section>
 
+    <!-- Slider -->
     <TickerSlider />
 
+    <!-- The Why -->
     <section class="split-section cream-section">
       <div class="split-media">
         <Image
@@ -64,11 +70,12 @@ const homepage = data.sectionsMap;
       </div>
     </section>
 
+    <!-- Projects -->
     <section class="residences-section" id="projects">
       <div class="container">
         <SectionTitle
-          title="Our Residences"
-          subtitle="Designed with Intention. Built to Withstand."
+          title={homepage.our_residences.content.header}
+          subtitle={homepage.our_residences.content.text_block}
           center
           light
         />
@@ -85,12 +92,14 @@ const homepage = data.sectionsMap;
       </div>
     </section>
 
+    <!-- Whiddon Standard -->
     <section class="standards-section cream-section">
       <div class="container narrow">
         <SectionTitle
-          title="The Whiddon Standard"
-          subtitle="A more disciplined approach to building and living"
+          title={homepage.whiddon_standard.content.header}
+          subtitle={homepage.whiddon_standard.content.text_block}
           center
+          dark
         />
 
         <div class="standard-grid">
@@ -99,7 +108,7 @@ const homepage = data.sectionsMap;
               <FadeIn client:visible delay={index * 0.08}>
                 <article class="standard-card">
                   <h3>{item.title}</h3>
-                  <p>{item.body}</p>
+                  <p>{item.description}</p>
                 </article>
               </FadeIn>
             ))
@@ -109,15 +118,20 @@ const homepage = data.sectionsMap;
     </section>
 
     <section class="full-bleed-image">
-      <img src="/assets/living-room-wide.png" alt="Wide interior living room" />
+      <Image
+        src={homepage.full_image_home.content.image}
+        alt={homepage.full_image_home.content.alt}
+        inferSize={true}
+      />
     </section>
 
     <section class="process-section cream-section">
       <div class="container narrow">
         <SectionTitle
-          title="A Measured Process"
-          subtitle="A measured development process from early planning through final delivery."
+          title={homepage.measured_process.content.header}
+          subtitle={homepage.measured_process.content.text_block}
           center
+          dark
         />
 
         <div class="process-grid">

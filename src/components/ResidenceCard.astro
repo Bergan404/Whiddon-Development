@@ -3,6 +3,7 @@ interface Props {
   residence: {
     image: string;
     title: string;
+    sub_title: string;
     location: string;
     type: string;
     description: string;
@@ -18,16 +19,17 @@ const { residence } = Astro.props;
   <img src={residence.image} alt={residence.title} class="residence-image" />
 
   <div class="residence-content">
+    <h3>
+      {residence.title}
+      {residence.sub_title && <span> {residence.sub_title}</span>}
+    </h3>
     <p class="eyebrow">{residence.location}</p>
-    <h3>{residence.title}</h3>
-    <p class="residence-type">{residence.type}</p>
-    <p class="residence-description">{residence.description}</p>
 
-    <ul class="detail-list">
-      {residence.details.map((detail) => <li>{detail}</li>)}
-    </ul>
+    <div set:html={residence.description} />
 
     <p class="delivery">{residence.delivery}</p>
-    <a class="button button-dark" href="#contact">Join the Interest List</a>
+    <a class="button button-dark center-button" href="#contact"
+      >Join the Interest List</a
+    >
   </div>
 </article>

@@ -1,0 +1,15 @@
+---
+import { navItems } from "../data/site";
+---
+
+<header class="site-header" id="navbar-1">
+  <div class="container header-inner">
+    <a class="brand-wordmark" href="#home">WHIDDON DEVELOPMENT</a>
+
+    <nav class="site-nav" aria-label="Primary navigation">
+      {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+
+    <a class="button button-dark button-small" href="#contact">Contact</a>
+  </div>
+</header>

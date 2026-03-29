@@ -1,0 +1,49 @@
+---
+import "@splidejs/splide/css";
+---
+
+<section class="ticker splide" aria-label="Whiddon Development banner">
+  <div class="splide__track">
+    <ul class="splide__list">
+      {
+        Array.from({ length: 10 }).map(() => (
+          <li class="splide__slide ticker-slide">
+            <img src="/assets/WD.svg" alt="Whiddon Logo" />
+            <span>WHIDDON DEVELOPMENT</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  import Splide from "@splidejs/splide";
+  import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
+
+  new Splide(".ticker", {
+    type: "loop",
+    drag: false,
+    arrows: false,
+    pagination: false,
+    perPage: 4,
+    gap: "2rem",
+    autoScroll: {
+      speed: 0.5,
+      pauseOnHover: false,
+      pauseOnFocus: false,
+    },
+    breakpoints: {
+      1000: {
+        perPage: 3,
+      },
+      700: {
+        perPage: 2,
+      },
+      500: {
+        perPage: 2,
+        gap: "10rem",
+      },
+    },
+  }).mount({ AutoScroll });
+</script>

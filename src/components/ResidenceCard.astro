@@ -1,0 +1,33 @@
+---
+interface Props {
+  residence: {
+    image: string;
+    title: string;
+    location: string;
+    type: string;
+    description: string;
+    details: string[];
+    delivery: string;
+  };
+}
+
+const { residence } = Astro.props;
+---
+
+<article class="residence-card">
+  <img src={residence.image} alt={residence.title} class="residence-image" />
+
+  <div class="residence-content">
+    <p class="eyebrow">{residence.location}</p>
+    <h3>{residence.title}</h3>
+    <p class="residence-type">{residence.type}</p>
+    <p class="residence-description">{residence.description}</p>
+
+    <ul class="detail-list">
+      {residence.details.map((detail) => <li>{detail}</li>)}
+    </ul>
+
+    <p class="delivery">{residence.delivery}</p>
+    <a class="button button-dark" href="#contact">Join the Interest List</a>
+  </div>
+</article>

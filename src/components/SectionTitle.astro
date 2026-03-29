@@ -1,0 +1,29 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  light?: boolean;
+  center?: boolean;
+  dark?: boolean;
+}
+
+const {
+  title,
+  subtitle,
+  light = false,
+  center = false,
+  dark = false,
+} = Astro.props;
+---
+
+<div
+  class:list={[
+    "section-title",
+    light && "is-light",
+    center && "is-center",
+    dark && "is-dark",
+  ]}
+>
+  <h2>{title}</h2>
+  {subtitle && <p>{subtitle}</p>}
+</div>

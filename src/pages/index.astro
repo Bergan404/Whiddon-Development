@@ -1,0 +1,300 @@
+---
+export const prerender = false;
+
+import { Image } from "astro:assets";
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import ResidenceCard from "../components/ResidenceCard.astro";
+import FadeIn from "../components/motion/FadeIn";
+import HeroReveal from "../components/motion/HeroReveal";
+import TickerSlider from "src/components/TickerSlider.astro";
+import {
+  livingPoints,
+  processItems,
+  residences,
+  standardItems,
+} from "../data/site";
+
+const response = await fetch(
+  "https://cms.oudsdev.com/api/content/whiddon-development/whiddon-development-site/home",
+);
+const data = await response.json();
+const homepage = data.sectionsMap;
+---
+
+<BaseLayout title="Whiddon Development Starter">
+  <Header />
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-inner">
+        <HeroReveal client:load />
+        <Image
+          src={homepage.heromain.content.image}
+          alt={homepage.heromain.content.title}
+          inferSize={true}
+          class="hero-logo"
+        />
+        <h1>{homepage.heromain.content.title}</h1>
+        <p>{homepage.heromain.content.subtitle}</p>
+        <a class="button button-light" href="#contact">Join Interest List</a>
+      </div>
+    </section>
+
+    <TickerSlider />
+
+    <section class="split-section cream-section">
+      <div class="split-media">
+        <Image
+          src={homepage.the_why_image.content.image}
+          alt={homepage.the_why_image.content.alt}
+          inferSize={true}
+        />
+      </div>
+
+      <div class="split-copy container-copy">
+        <SectionTitle title={homepage.the_why.content.header} center dark />
+
+        <div
+          class="flow-content"
+          set:html={homepage.the_why.content.text_block}
+        />
+      </div>
+    </section>
+
+    <section class="residences-section" id="projects">
+      <div class="container">
+        <SectionTitle
+          title="Our Residences"
+          subtitle="Designed with Intention. Built to Withstand."
+          center
+          light
+        />
+
+        <div class="residences-grid">
+          {
+            residences.map((residence, index) => (
+              <FadeIn client:visible delay={index * 0.08}>
+                <ResidenceCard residence={residence} />
+              </FadeIn>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="standards-section cream-section">
+      <div class="container narrow">
+        <SectionTitle
+          title="The Whiddon Standard"
+          subtitle="A more disciplined approach to building and living"
+          center
+        />
+
+        <div class="standard-grid">
+          {
+            standardItems.map((item, index) => (
+              <FadeIn client:visible delay={index * 0.08}>
+                <article class="standard-card">
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </article>
+              </FadeIn>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="full-bleed-image">
+      <img src="/assets/living-room-wide.png" alt="Wide interior living room" />
+    </section>
+
+    <section class="process-section cream-section">
+      <div class="container narrow">
+        <SectionTitle
+          title="A Measured Process"
+          subtitle="A measured development process from early planning through final delivery."
+          center
+        />
+
+        <div class="process-grid">
+          {
+            processItems.map((item, index) => (
+              <FadeIn client:visible delay={index * 0.08}>
+                <article class="process-card">
+                  <div class="process-icon" aria-hidden="true">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.body}</p>
+                  </div>
+                </article>
+              </FadeIn>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="split-section dark-split" id="brand-story">
+      <div class="split-media">
+        <img
+          src="/assets/brand-story.png"
+          alt="Whiddon Development sign and founder"
+        />
+      </div>
+
+      <div class="split-copy container-copy">
+        <SectionTitle title="Brand Story" light />
+        <div class="flow-content light-copy">
+          <p>
+            Whiddon Development was formed in response to a clear gap in the
+            market.
+          </p>
+          <p>
+            Too often, homes are built around appearance first, while the deeper
+            decisions that shape durability, comfort, and long term performance
+            are treated as secondary. More often than not, in South Florida,
+            that approach falls short.
+          </p>
+          <p>
+            Growing up in the real estate sales industry as a former real estate
+            agent, Harrison Whiddon saw how often homes were judged by curb
+            appeal while the details that affect how a home functions, handles
+            moisture and water, wears over time, and supports daily life
+            received far less attention.
+          </p>
+          <p>
+            Whiddon Development was created to approach residential living more
+            intentionally. Each residence is shaped with greater discipline
+            around exterior and interior design, material selection, function,
+            architectural character, and long term livability so the finished
+            home feels more measured, more refined, more resilient, and better
+            suited to life in South Florida.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="split-section cream-section reverse-mobile">
+      <div class="split-copy container-copy living-copy">
+        <SectionTitle title="Homes Built For Better Living" />
+        <p class="intro-copy">
+          Designed with greater care for how a home feels, performs, and
+          endures.
+        </p>
+
+        <ul class="pill-list">
+          {livingPoints.map((point) => <li>{point}</li>)}
+        </ul>
+
+        <p class="summary-copy">
+          The result is a home that feels more resolved, lives more comfortably,
+          and holds its quality over time.
+        </p>
+      </div>
+
+      <div class="split-media">
+        <img
+          src="/assets/better-living.png"
+          alt="Quiet interior seating area"
+        />
+      </div>
+    </section>
+
+    <section class="quote-band">
+      <div class="container narrow">
+        <p>
+          Built with greater care for how a home feels, functions, and endures
+        </p>
+      </div>
+    </section>
+
+    <section class="contact-section cream-section" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-copy">
+          <h2>Get in touch with us</h2>
+          <div class="contact-person">
+            <h3>Harrison Whiddon</h3>
+            <p>954.649.7315</p>
+            <p>Harrison@whiddondev.com</p>
+          </div>
+
+          <div>
+            <h3>Let’s connect</h3>
+            <a class="social-link" href="#" aria-label="Instagram">◉</a>
+          </div>
+        </div>
+
+        <form class="interest-form">
+          <div class="form-grid two-up">
+            <label>
+              <span>Full Name</span>
+              <input type="text" name="name" />
+            </label>
+            <label>
+              <span>Phone Number</span>
+              <input type="tel" name="phone" />
+            </label>
+          </div>
+
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" />
+          </label>
+
+          <fieldset>
+            <legend>Which projects are you interested in?</legend>
+
+            <label class="checkbox-card">
+              <input type="checkbox" name="projects" value="sanctuary" />
+              <div>
+                <strong>Project #1: The Sanctuary · East Fort Lauderdale</strong
+                >
+                <span>Groundbreaking Q1 2026 · Completion approx. Q4 2026</span>
+                <small>
+                  A Modern Coastal Farmhouse–Ranch residence designed with
+                  excellence, integrity, and the Whiddon Standard at its core.
+                </small>
+              </div>
+            </label>
+
+            <label class="checkbox-card">
+              <input type="checkbox" name="projects" value="reserve" />
+              <div>
+                <strong
+                  >Project #2: The Reserve at Cliff Lake · East Fort Lauderdale</strong
+                >
+                <span>Coming Soon · Currently in design phase</span>
+                <small>
+                  A Modern Coastal Farmhouse–Ranch residence designed with
+                  excellence, integrity, and the Whiddon Standard at its core.
+                </small>
+              </div>
+            </label>
+          </fieldset>
+
+          <button class="button button-dark" type="submit"
+            >Join Our Interest List</button
+          >
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <img
+        src="/assets/monogram.png"
+        alt="Whiddon Development logo"
+        class="footer-logo"
+      />
+      <p>© 2025 Whiddon Development. All rights reserved.</p>
+      <p>Licensed Real Estate Broker Associate</p>
+    </div>
+  </footer>
+</BaseLayout>

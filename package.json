@@ -1,0 +1,19 @@
+{
+  "name": "whiddon-astro-starter",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.3.0",
+    "@splidejs/splide": "^4.1.4",
+    "@splidejs/splide-extension-auto-scroll": "^0.5.3",
+    "astro": "^5.2.0",
+    "framer-motion": "^12.9.2"
+  }
+}

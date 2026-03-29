@@ -207,6 +207,14 @@ select {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+.split-section-brand {
+  display: grid;
+  grid-template-columns: 45% 1fr;
+}
+.split-section-better-living {
+  display: grid;
+  grid-template-columns: 1fr 45%;
+}
 
 .split-media {
   height: 750px;
@@ -225,7 +233,7 @@ select {
 }
 
 .flow-content {
-  max-width: 580px;
+  /* max-width: 580px; */
 }
 
 .flow-content h3 {
@@ -257,6 +265,13 @@ select {
   font-size: 17px;
 }
 
+#brand-story .flow-content p {
+  margin: 0 0 16px;
+  /* color: var(--text-muted); */
+  font-size: 20px;
+  font-weight: 300;
+}
+
 .section-title {
   margin-bottom: 24px;
 }
@@ -264,7 +279,7 @@ select {
 .section-title h2 {
   margin: 0;
   font-weight: 450;
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2rem, 5vw, 3rem);
   line-height: 1.08;
 }
 
@@ -411,7 +426,10 @@ select {
 
 .standard-card p {
   min-height: 100px;
-  /* font-weight: 300; */
+}
+
+.process-card p {
+  min-height: 150px;
 }
 
 .standard-card p,
@@ -432,20 +450,20 @@ select {
   border-radius: 18px;
   padding: 24px;
   display: grid;
-  grid-template-columns: 60px 1fr;
+  grid-template-columns: 100px 1fr;
   gap: 16px;
   align-items: start;
   border: 1px solid rgba(17, 24, 20, 0.08);
 }
 
 .process-icon {
-  width: 52px;
-  height: 52px;
+  height: 100%;
   display: grid;
   place-items: center;
-  border-radius: 50%;
-  border: 1px solid rgba(17, 24, 20, 0.18);
-  font-size: 1.35rem;
+}
+
+.process-icon img {
+  width: 70px;
 }
 
 .process-card p {
@@ -457,20 +475,22 @@ select {
 }
 
 .living-copy {
-  max-width: 560px;
+  /* max-width: 560px; */
 }
 
 .intro-copy,
 .summary-copy {
   color: var(--text-muted);
-  max-width: 520px;
+  /* max-width: 520px; */
 }
 
 .pill-list {
   list-style: none;
   margin: 26px 0 28px;
   padding: 0;
-  max-width: 530px;
+  /* font-size: 20px; */
+  font-weight: 300;
+  /* max-width: 530px; */
 }
 
 .pill-list li {

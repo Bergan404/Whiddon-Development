@@ -12,7 +12,7 @@ import HeroReveal from "../components/motion/HeroReveal";
 import TickerSlider from "src/components/TickerSlider.astro";
 import {
   livingPoints,
-  processItems,
+  // processItems,
   // residences,
   // standardItems,
 } from "../data/site";
@@ -25,6 +25,7 @@ const homepage = data.sectionsMap;
 
 const residences = homepage.projects?.content?.project ?? [];
 const standardItems = homepage.whiddon_standards?.content?.standards ?? [];
+const processItems = homepage.measured_process_repeater?.content?.process ?? [];
 ---
 
 <BaseLayout title="Whiddon Development Starter">
@@ -117,6 +118,7 @@ const standardItems = homepage.whiddon_standards?.content?.standards ?? [];
       </div>
     </section>
 
+    <!-- full image -->
     <section class="full-bleed-image">
       <Image
         src={homepage.full_image_home.content.image}
@@ -125,6 +127,7 @@ const standardItems = homepage.whiddon_standards?.content?.standards ?? [];
       />
     </section>
 
+    <!-- The Process of WD -->
     <section class="process-section cream-section">
       <div class="container narrow">
         <SectionTitle
@@ -140,11 +143,16 @@ const standardItems = homepage.whiddon_standards?.content?.standards ?? [];
               <FadeIn client:visible delay={index * 0.08}>
                 <article class="process-card">
                   <div class="process-icon" aria-hidden="true">
-                    {item.icon}
+                    {/* <Image src={item.image} alt={item.title} inferSize={true} /> */}
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      class="process-icon-image"
+                    />
                   </div>
                   <div>
                     <h3>{item.title}</h3>
-                    <p>{item.body}</p>
+                    <p>{item.description}</p>
                   </div>
                 </article>
               </FadeIn>
@@ -154,47 +162,29 @@ const standardItems = homepage.whiddon_standards?.content?.standards ?? [];
       </div>
     </section>
 
-    <section class="split-section dark-split" id="brand-story">
+    <section class="split-section-brand dark-split" id="brand-story">
       <div class="split-media">
-        <img
-          src="/assets/brand-story.png"
-          alt="Whiddon Development sign and founder"
+        <Image
+          src={homepage.brand_story_image.content.image}
+          alt={homepage.brand_story_image.content.alt}
+          inferSize={true}
         />
       </div>
 
       <div class="split-copy container-copy">
-        <SectionTitle title="Brand Story" light />
-        <div class="flow-content light-copy">
-          <p>
-            Whiddon Development was formed in response to a clear gap in the
-            market.
-          </p>
-          <p>
-            Too often, homes are built around appearance first, while the deeper
-            decisions that shape durability, comfort, and long term performance
-            are treated as secondary. More often than not, in South Florida,
-            that approach falls short.
-          </p>
-          <p>
-            Growing up in the real estate sales industry as a former real estate
-            agent, Harrison Whiddon saw how often homes were judged by curb
-            appeal while the details that affect how a home functions, handles
-            moisture and water, wears over time, and supports daily life
-            received far less attention.
-          </p>
-          <p>
-            Whiddon Development was created to approach residential living more
-            intentionally. Each residence is shaped with greater discipline
-            around exterior and interior design, material selection, function,
-            architectural character, and long term livability so the finished
-            home feels more measured, more refined, more resilient, and better
-            suited to life in South Florida.
-          </p>
-        </div>
+        <SectionTitle
+          title={homepage.brand_story.content.header}
+          light
+          center
+        />
+        <div
+          class="flow-content light-copy"
+          set:html={homepage.brand_story.content.text_block}
+        />
       </div>
     </section>
 
-    <section class="split-section cream-section reverse-mobile">
+    <section class="split-section-better-living cream-section reverse-mobile">
       <div class="split-copy container-copy living-copy">
         <SectionTitle title="Homes Built For Better Living" />
         <p class="intro-copy">
@@ -213,9 +203,10 @@ const standardItems = homepage.whiddon_standards?.content?.standards ?? [];
       </div>
 
       <div class="split-media">
-        <img
-          src="/assets/better-living.png"
-          alt="Quiet interior seating area"
+        <Image
+          src={homepage.better_homes_image.content.image}
+          alt={homepage.better_homes_image.content.alt}
+          inferSize={true}
         />
       </div>
     </section>

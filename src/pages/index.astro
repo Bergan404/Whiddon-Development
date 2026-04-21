@@ -28,7 +28,7 @@ const standardItems = homepage.whiddon_standards?.content?.standards ?? [];
 const processItems = homepage.measured_process_repeater?.content?.process ?? [];
 ---
 
-<BaseLayout title="Whiddon Development Starter">
+<BaseLayout title="Whiddon Development">
   <Header />
 
   <main>
@@ -187,19 +187,22 @@ const processItems = homepage.measured_process_repeater?.content?.process ?? [];
     <section class="split-section-better-living cream-section reverse-mobile">
       <div class="split-copy container-copy living-copy">
         <SectionTitle title="Homes Built For Better Living" />
-        <p class="intro-copy">
-          Designed with greater care for how a home feels, performs, and
-          endures.
-        </p>
+        <div class="flow-content">
+          <p>
+            Designed with greater care for how a home feels, performs, and
+            endures.
+          </p>
+        </div>
 
         <ul class="pill-list">
           {livingPoints.map((point) => <li>{point}</li>)}
         </ul>
-
-        <p class="summary-copy">
-          The result is a home that feels more resolved, lives more comfortably,
-          and holds its quality over time.
-        </p>
+        <div class="flow-content">
+          <p>
+            The result is a home that feels more resolved, lives more
+            comfortably, and holds its quality over time.
+          </p>
+        </div>
       </div>
 
       <div class="split-media">
@@ -222,6 +225,7 @@ const processItems = homepage.measured_process_repeater?.content?.process ?? [];
     <section class="contact-section cream-section" id="contact">
       <div class="container contact-grid">
         <div class="contact-copy">
+          <!-- <SectionTitle title="Get in touch with us" /> -->
           <h2>Get in touch with us</h2>
           <div class="contact-person">
             <h3>Harrison Whiddon</h3>
@@ -235,11 +239,32 @@ const processItems = homepage.measured_process_repeater?.content?.process ?? [];
           </div>
         </div>
 
-        <form class="interest-form">
+        <form
+          class="interest-form"
+          id="interest-form"
+          action="https://api.web3forms.com/submit"
+          method="POST"
+        >
+          <input
+            type="hidden"
+            name="access_key"
+            value={import.meta.env.WEB_THREE_FORMS}
+          />
+          <input
+            type="hidden"
+            name="subject"
+            value="New Whiddon Interest Submission"
+          />
+          <input
+            type="hidden"
+            name="from_name"
+            value="Whiddon Development Website"
+          />
+
           <div class="form-grid two-up">
             <label>
               <span>Full Name</span>
-              <input type="text" name="name" />
+              <input type="text" name="name" required />
             </label>
             <label>
               <span>Phone Number</span>
@@ -249,14 +274,14 @@ const processItems = homepage.measured_process_repeater?.content?.process ?? [];
 
           <label>
             <span>Email</span>
-            <input type="email" name="email" />
+            <input type="email" name="email" required />
           </label>
 
           <fieldset>
             <legend>Which projects are you interested in?</legend>
 
             <label class="checkbox-card">
-              <input type="checkbox" name="projects" value="sanctuary" />
+              <input type="checkbox" name="projects" value="The Sanctuary" />
               <div>
                 <strong>Project #1: The Sanctuary · East Fort Lauderdale</strong
                 >
@@ -269,7 +294,11 @@ const processItems = homepage.measured_process_repeater?.content?.process ?? [];
             </label>
 
             <label class="checkbox-card">
-              <input type="checkbox" name="projects" value="reserve" />
+              <input
+                type="checkbox"
+                name="projects"
+                value="The Reserve at Cliff Lake"
+              />
               <div>
                 <strong
                   >Project #2: The Reserve at Cliff Lake · East Fort Lauderdale</strong
@@ -283,23 +312,101 @@ const processItems = homepage.measured_process_repeater?.content?.process ?? [];
             </label>
           </fieldset>
 
-          <button class="button button-dark" type="submit"
-            >Join Our Interest List</button
-          >
+          <button class="button button-dark" type="submit">
+            Join Our Interest List
+          </button>
+
+          <p class="form-status" id="form-status" aria-live="polite"></p>
         </form>
+
+        <div class="nl-success" id="nl-success" hidden>
+          <div class="nl-success-icon" aria-hidden="true">
+            <!-- <svg viewBox="0 0 24 24" fill="none">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg> -->
+            <Image
+              src={homepage.heromain.content.image}
+              alt={homepage.heromain.content.title}
+              inferSize={true}
+              class="nl-success-image"
+            />
+          </div>
+
+          <h3>You’re <em>In</em></h3>
+          <p>
+            Thank you for joining the Whiddon Development interest list. We’ll
+            be in touch with updates, project information, and next steps as
+            they become available.
+          </p>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <img
-        src="/assets/monogram.png"
-        alt="Whiddon Development logo"
+      <Image
+        src={homepage.heromain.content.image}
+        alt={homepage.heromain.content.title}
+        inferSize={true}
         class="footer-logo"
       />
-      <p>© 2025 Whiddon Development. All rights reserved.</p>
+      <p>© 2026 Whiddon Development. All rights reserved.</p>
       <p>Licensed Real Estate Broker Associate</p>
     </div>
   </footer>
 </BaseLayout>
+
+<script>
+  const form = document.getElementById("interest-form");
+  const status = document.getElementById("form-status");
+  const successBox = document.getElementById("nl-success");
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const button = form.querySelector('button[type="submit"]');
+    const formData = new FormData(form);
+
+    try {
+      if (button) {
+        button.disabled = true;
+        button.textContent = "Submitting...";
+      }
+
+      if (status) status.textContent = "";
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (!result.success) {
+        throw new Error(result.message || "Failed to submit form.");
+      }
+
+      form.reset();
+      form.hidden = true;
+
+      if (successBox) {
+        successBox.hidden = false;
+        successBox.classList.add("is-visible");
+        successBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    } catch (error) {
+      if (status) {
+        status.textContent =
+          error instanceof Error
+            ? error.message
+            : "Something went wrong. Please try again.";
+      }
+
+      if (button) {
+        button.disabled = false;
+        button.textContent = "Join Our Interest List";
+      }
+    }
+  });
+</script>

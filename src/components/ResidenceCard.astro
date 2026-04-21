@@ -2,6 +2,7 @@
 interface Props {
   residence: {
     image: string;
+    image_two: string;
     title: string;
     sub_title: string;
     location: string;
@@ -16,7 +17,25 @@ const { residence } = Astro.props;
 ---
 
 <article class="residence-card">
-  <img src={residence.image} alt={residence.title} class="residence-image" />
+  <!-- <img src={residence.image} alt={residence.title} class="residence-image" /> -->
+
+  <div class="residence-image-wrapper">
+    <img
+      src={residence.image}
+      alt={residence.title}
+      class="residence-image"
+      data-img-one={residence.image}
+      data-img-two={residence.image_two}
+    />
+
+    <button class="img-toggle prev">
+      <i class="fa-solid fa-angle-left"></i>
+    </button>
+
+    <button class="img-toggle next">
+      <i class="fa-solid fa-angle-right"></i>
+    </button>
+  </div>
 
   <div class="residence-content">
     <h3>
@@ -33,3 +52,65 @@ const { residence } = Astro.props;
     >
   </div>
 </article>
+
+<script>
+  document.querySelectorAll(".residence-image-wrapper").forEach((wrapper) => {
+    const img = wrapper.querySelector(".residence-image");
+    const prev = wrapper.querySelector(".prev");
+    const next = wrapper.querySelector(".next");
+
+    let current = 1;
+
+    function updateImage() {
+      img.src = current === 1 ? img.dataset.imgOne : img.dataset.imgTwo;
+    }
+
+    prev.addEventListener("click", () => {
+      current = current === 1 ? 2 : 1;
+      updateImage();
+    });
+
+    next.addEventListener("click", () => {
+      current = current === 1 ? 2 : 1;
+      updateImage();
+    });
+  });
+</script>
+
+<style>
+  .residence-image-wrapper {
+    position: relative;
+  }
+
+  .img-toggle {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 40px; /* 👈 size of circle */
+    height: 40px;
+
+    border-radius: 50%; /* 👈 makes it a circle */
+
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+
+    border: none;
+    cursor: pointer;
+
+    display: flex; /* 👈 center the arrow */
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px; /* 👈 arrow size */
+    /* font-weight: 600; */
+  }
+
+  .img-toggle.prev {
+    left: 15px;
+  }
+
+  .img-toggle.next {
+    right: 15px;
+  }
+</style>

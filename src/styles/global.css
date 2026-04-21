@@ -637,7 +637,9 @@ select {
 
 .footer-logo {
   width: 110px;
+  height: auto;
   margin-bottom: 6px;
+  object-fit: contain;
 }
 
 @media (max-width: 980px) {
@@ -717,4 +719,104 @@ select {
   position: absolute;
   inset: 0;
   pointer-events: none;
+}
+
+/* form */
+.nl-success {
+  background: var(--bg-dark);
+  color: #f4eee6;
+  border-radius: 2rem;
+  padding: clamp(2rem, 4vw, 4rem);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-top: 1.5rem;
+}
+
+.nl-success::before,
+.nl-success::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(244, 238, 230, 0.08);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.nl-success::before {
+  width: 220px;
+  height: 220px;
+  top: -90px;
+  right: -70px;
+}
+
+.nl-success::after {
+  width: 200px;
+  height: 200px;
+  bottom: -110px;
+  left: -90px;
+}
+
+.nl-success-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 1.5rem;
+  border: 1px solid white;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.nl-success-icon svg {
+  width: 28px;
+  height: 28px;
+  stroke: white;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.nl-success-image {
+  width: 55px;
+  height: auto;
+  object-fit: contain;
+  margin-top: 5px;
+}
+
+.nl-success h3 {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.nl-success h3 em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.nl-success p {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(244, 238, 230, 0.86);
+}
+
+.nl-success[hidden] {
+  display: none;
+}
+
+.nl-success.is-visible {
+  animation: successFade 0.45s ease;
+}
+
+@keyframes successFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

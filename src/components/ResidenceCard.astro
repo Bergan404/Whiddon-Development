@@ -3,6 +3,8 @@ interface Props {
   residence: {
     image: string;
     image_two: string;
+    image_three: string;
+    image_four: string;
     title: string;
     sub_title: string;
     location: string;
@@ -26,6 +28,8 @@ const { residence } = Astro.props;
       class="residence-image"
       data-img-one={residence.image}
       data-img-two={residence.image_two}
+      data-img-three={residence.image_three}
+      data-img-four={residence.image_four}
     />
 
     <button class="img-toggle prev">
@@ -59,19 +63,26 @@ const { residence } = Astro.props;
     const prev = wrapper.querySelector(".prev");
     const next = wrapper.querySelector(".next");
 
-    let current = 1;
+    const images = [
+      img.dataset.imgOne,
+      img.dataset.imgTwo,
+      img.dataset.imgThree,
+      img.dataset.imgFour,
+    ].filter(Boolean); // removes empty ones
+
+    let current = 0;
 
     function updateImage() {
-      img.src = current === 1 ? img.dataset.imgOne : img.dataset.imgTwo;
+      img.src = images[current];
     }
 
     prev.addEventListener("click", () => {
-      current = current === 1 ? 2 : 1;
+      current = current === 0 ? images.length - 1 : current - 1;
       updateImage();
     });
 
     next.addEventListener("click", () => {
-      current = current === 1 ? 2 : 1;
+      current = current === images.length - 1 ? 0 : current + 1;
       updateImage();
     });
   });

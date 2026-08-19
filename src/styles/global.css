@@ -136,6 +136,10 @@ select {
   width: fit-content;
 }
 
+.temp {
+  height: 100vh !important;
+}
+
 .hero {
   background:
     radial-gradient(circle at 50% 35%, rgba(83, 108, 83, 0.3), transparent 26%),
